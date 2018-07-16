@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.Gson;
 import com.xyshzh.elasticsearch.client.Connection;
 import com.xyshzh.elasticsearch.execute.Execute;
 
@@ -22,6 +21,11 @@ public class Test {
     List<Map<String, Object>> list = new ArrayList<>();
     execute.filter(list, "my_index", "a", 0, 10, new String[] { "id", "uid", "name" }, null, null, null);
     System.out.println(list.size());
-    System.out.println(new Gson().toJson(list));
+    list.forEach(m -> {
+      System.out.println("----------------------");
+      m.forEach((k, v) -> {
+        System.out.println(k + "   :::   " + v);
+      });
+    });
   }
 }

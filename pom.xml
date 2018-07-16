@@ -1,171 +1,138 @@
 <?xml version="1.0"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
+ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+ xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.xyshzh</groupId>
-	<artifactId>elasticsearch-utils</artifactId>
-	<version>0.0.1</version>
-	<packaging>jar</packaging>
+ <groupId>com.xyshzh</groupId>
+ <artifactId>elasticsearch-utils</artifactId>
+ <version>0.0.1</version>
+ <packaging>jar</packaging>
 
-	<name>elasticsearch-utils</name>
-	<url>http://www.xyshzh.com</url>
+ <name>elasticsearch-utils</name>
+ <url>http://www.xyshzh.com</url>
 
-	<repositories>
-		<repository>
-			<id>alimaven</id>
-			<name>aliyun maven</name>
-			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-			<layout>default</layout>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>central</id>
-			<name>Central Repository</name>
-			<url>https://repo.maven.apache.org/maven2</url>
-			<layout>default</layout>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+ <properties>
+  <encoding>UTF-8</encoding>
+  <maven.compiler.source>1.8</maven.compiler.source>
+  <maven.compiler.target>1.8</maven.compiler.target>
+  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  <junit.version>4.12</junit.version>
+  <org.elasticsearch.version>6.0.0</org.elasticsearch.version>
+  <com.xyshzh.utils.version>0.0.1</com.xyshzh.utils.version>
+ </properties>
 
-	<properties>
-		<encoding>UTF-8</encoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<junit.version>4.12</junit.version>
-		<org.elasticsearch.version>6.2.4</org.elasticsearch.version>
-		<com.xyshzh.utils.version>0.0.1</com.xyshzh.utils.version>
-	</properties>
+ <dependencies>
+  <!-- junit依赖组件信息 ↓ -->
+  <dependency>
+   <groupId>junit</groupId>
+   <artifactId>junit</artifactId>
+   <version>${junit.version}</version>
+   <scope>test</scope>
+  </dependency>
+  <!-- junit依赖组件信息↑ -->
 
-	<dependencies>
-		<!-- junit依赖组件信息 ↓ -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- junit依赖组件信息↑ -->
+  <!-- Elasticsearch依赖组件信息 ↓ -->
+  <dependency>
+   <groupId>org.elasticsearch</groupId>
+   <artifactId>elasticsearch</artifactId>
+   <version>${org.elasticsearch.version}</version>
+  </dependency>
+  <dependency>
+   <groupId>org.elasticsearch.client</groupId>
+   <artifactId>transport</artifactId>
+   <version>${org.elasticsearch.version}</version>
+   <exclusions>
+    <exclusion>
+     <groupId>org.elasticsearch</groupId>
+     <artifactId>elasticsearch</artifactId>
+    </exclusion>
+   </exclusions>
+  </dependency>
+  <!-- Elasticsearch依赖组件信息↑ -->
 
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.2</version>
-		</dependency>
+  <!-- com.xyshzh.utils依赖组件信息 ↓ -->
+  <dependency>
+   <groupId>com.xyshzh</groupId>
+   <artifactId>utils</artifactId>
+   <version>${com.xyshzh.utils.version}</version>
+  </dependency>
+  <!-- com.xyshzh.utils依赖组件信息↑ -->
+ </dependencies>
 
-		<!-- Elasticsearch依赖组件信息 ↓ -->
-		<dependency>
-			<groupId>org.elasticsearch</groupId>
-			<artifactId>elasticsearch</artifactId>
-			<version>${org.elasticsearch.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.elasticsearch.client</groupId>
-			<artifactId>transport</artifactId>
-			<version>${org.elasticsearch.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.elasticsearch</groupId>
-					<artifactId>elasticsearch</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<!-- Elasticsearch依赖组件信息↑ -->
-
-		<!-- com.xyshzh.utils依赖组件信息 ↓ -->
-		<dependency>
-			<groupId>com.xyshzh</groupId>
-			<artifactId>utils</artifactId>
-			<version>${com.xyshzh.utils.version}</version>
-		</dependency>
-		<!-- com.xyshzh.utils依赖组件信息↑ -->
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.8</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.0.0</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass></mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>3.0.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.4</version>
-				<configuration>
-					<encoding>UTF-8</encoding>
-					<aggregate>true</aggregate>
-					<charset>UTF-8</charset>
-					<docencoding>UTF-8</docencoding>
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+ <build>
+  <plugins>
+   <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-dependency-plugin</artifactId>
+    <version>2.8</version>
+    <executions>
+     <execution>
+      <phase>package</phase>
+      <goals>
+       <goal>copy-dependencies</goal>
+      </goals>
+     </execution>
+    </executions>
+   </plugin>
+   <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <version>3.0.0</version>
+    <configuration>
+     <descriptorRefs>
+      <descriptorRef>jar-with-dependencies</descriptorRef>
+     </descriptorRefs>
+     <archive>
+      <manifest>
+       <mainClass></mainClass>
+      </manifest>
+     </archive>
+    </configuration>
+    <executions>
+     <execution>
+      <id>make-assembly</id>
+      <phase>package</phase>
+      <goals>
+       <goal>single</goal>
+      </goals>
+     </execution>
+    </executions>
+   </plugin>
+   <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-source-plugin</artifactId>
+    <version>3.0.1</version>
+    <executions>
+     <execution>
+      <id>attach-sources</id>
+      <phase>verify</phase>
+      <goals>
+       <goal>jar-no-fork</goal>
+      </goals>
+     </execution>
+    </executions>
+   </plugin>
+   <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-javadoc-plugin</artifactId>
+    <version>2.10.4</version>
+    <configuration>
+     <encoding>UTF-8</encoding>
+     <aggregate>true</aggregate>
+     <charset>UTF-8</charset>
+     <docencoding>UTF-8</docencoding>
+    </configuration>
+    <executions>
+     <execution>
+      <id>attach-javadocs</id>
+      <goals>
+       <goal>jar</goal>
+      </goals>
+     </execution>
+    </executions>
+   </plugin>
+  </plugins>
+ </build>
 
 </project>

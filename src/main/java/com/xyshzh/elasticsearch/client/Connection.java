@@ -87,7 +87,8 @@ public interface Connection {
         if (client_min_size > clients.size()) {
           for (int i = client_init_batch_size; i > 0; i--) {
             List<TransportAddress> addressList = getAllAddress();
-            clients.addElement(new PreBuiltTransportClient(settings).addTransportAddresses(addressList.toArray(new TransportAddress[addressList.size()])));
+            clients.addElement(new PreBuiltTransportClient(settings)
+                .addTransportAddresses(addressList.toArray(new TransportAddress[addressList.size()])));
           }
         }
       }
